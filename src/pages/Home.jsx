@@ -3,16 +3,35 @@ import { NavLink } from "react-router-dom"
 import logo from "../assets/tv.png"
 import { CiSearch } from "react-icons/ci"
 import {HiBars3CenterLeft } from "react-icons/hi2"
+import MovieCard from "../components/MovieCard"
+import { useState, useEffect } from "react"
+import axios from "axios"
+
+import {FaFacebookF} from "react-icons/fa"
+import {AiOutlineTwitter, AiOutlineInstagram, AiFillYoutube} from "react-icons/ai"
 
 const Home = () => {
-    // const fetchdata = async () => {
-    //     try {
-    //       const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=1d35541573902b7260a788e28e9dfe98")
-    //       console.log(response)
-    //     }catch(err) {
-    //       console.log(err)
-    //     }
-    //   }
+    const [movies, setMovies] = useState([])
+    const topRated = movies.filter((movie, index) => index < 10)
+
+    const fetchData = async () => {
+        try {
+          const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=1d35541573902b7260a788e28e9dfe98")
+          
+          setMovies(response.data.results)
+          
+        }catch(err) {
+          console.log(err)
+          //error handling later
+        }
+      }
+      
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    console.log(movies)
     
     return (
         <main>
@@ -22,8 +41,8 @@ const Home = () => {
                         <img src={logo}/>
                         <h2 className="text-[1.5rem] font-bold text-[#FFF] leading-[1.5rem]">MovieBox</h2>
                     </div>
-                    <div  className="flex items-center justify-between px-[0.2rem] md:py-[.2rem] cursor-pointer md:column md:items-center gap-8 border-2 rounded-[5px]">
-                        <input className="text-[.88rem] w-[100%] md:w-auto leading-[1.125rem] md:py-1 py-2 bg-transparent outline-none  px-[.75rem]" type="text" placeholder="What do you want to watch?" />
+                    <div  className="flex items-center justify-between px-[0.2rem] md:py-[.2rem] cursor-pointer md:column md:items-center gap-8 border-2 rounded-[5px] w-[40%]">
+                        <input className="text-[.88rem] w-[100%] leading-[1.125rem] md:py-1 py-2 bg-transparent px-[.75rem]" type="text" placeholder="What do you want to watch?" />
                         <CiSearch  className="w-[1.4rem] h-[1.4rem] md:w-[1.1rem] text-[#FFF] md:h-[1.1rem]"/>
                     </div>
 
@@ -39,10 +58,44 @@ const Home = () => {
                     <div className="w-[50%]">
                         <h1 className="text-[3rem] font-bold leading-[3.5rem] text-[#FFF]">John Wick 3: Parabellum</h1>
                         <p className="text-[0.875rem] font-medium leading-[1.125rem] text-[#FFF] w-[55%]">John Wick is on the run after killing a member of the international assassins guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</p>
-                        <button className="px-2 py-2 bg-[#BE123C] text-[#FFF] uppercase rounded-[.3rem] hover:bg-opacity-[0.7] mb-[4rem] mt-[.5rem]">Watch Trailer</button>
+                        <button className="px-2 py-2 bg-[#BE123C] text-[#FFF] uppercase rounded-[.3rem] hover:bg-opacity-[0.7] mb-[6rem] mt-[.5rem]">Watch Trailer</button>
                     </div>
                 </section>
             </header>
+
+            <section className=" my-10 md:w-[80%] md:mx-auto">
+                <h1 className="mb-[1.2rem] text-[#000] text-[2.2rem] font-bold leading-normal">Top 10 Movies</h1>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-[4.5rem]">
+                {
+                    topRated.map(items => 
+                    <MovieCard key={items.id} 
+                    movie_id={items.id}
+                    poster={items.poster_path}
+                    title={items.title}
+                    release_date={items.release_date}
+                    />
+                    )
+                }
+                </div>
+
+            </section>
+
+            <section className=" mt-10 mb-2 md:w-[50%] md:mx-auto">
+                <div className="flex justify-between items-center">
+                    <FaFacebookF />
+                    <AiOutlineInstagram />
+                    <AiOutlineTwitter />
+                    <AiFillYoutube />
+                </div>
+
+                <div className="flex justify-between items-center text-[#111827]">
+                    <p className="text-[1.125rem] font-bold leading-normal">Conditions of Use</p>
+                    <p className="text-[1.125rem] font-bold leading-normal">Privacy & Policy</p>
+                    <p className="text-[1.125rem] font-bold leading-normal">Press Room</p>
+                </div>
+
+                <p className="text-[#6B7280] text-[1.125rem] font-bold leading-normal">2023 MoviesCom by umar faruq</p>
+            </section>
 
         </main>
     )
