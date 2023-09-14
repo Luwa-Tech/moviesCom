@@ -31,7 +31,6 @@ const Home = () => {
         fetchData()
     }, [])
 
-    console.log(movies)
     
     return (
         <main>
@@ -65,7 +64,7 @@ const Home = () => {
 
             <section className=" my-10 md:w-[80%] md:mx-auto">
                 <h1 className="mb-[1.2rem] text-[#000] text-[2.2rem] font-bold leading-normal">Top 10 Movies</h1>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-[4.5rem]">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-[8rem]">
                 {
                     topRated.map(items => 
                     <MovieCard key={items.id} 
@@ -80,21 +79,21 @@ const Home = () => {
 
             </section>
 
-            <section className=" mt-10 mb-2 md:w-[50%] md:mx-auto">
-                <div className="flex justify-between items-center">
+            <section className=" mt-[9rem] mb-2 md:w-[40%] md:mx-auto">
+                <div className="flex justify-between mb-6 md:w-[30%] md:mx-auto items-center">
                     <FaFacebookF />
                     <AiOutlineInstagram />
                     <AiOutlineTwitter />
                     <AiFillYoutube />
                 </div>
 
-                <div className="flex justify-between items-center text-[#111827]">
+                <div className="flex justify-between mb-6 items-center text-[#111827]">
                     <p className="text-[1.125rem] font-bold leading-normal">Conditions of Use</p>
                     <p className="text-[1.125rem] font-bold leading-normal">Privacy & Policy</p>
                     <p className="text-[1.125rem] font-bold leading-normal">Press Room</p>
                 </div>
 
-                <p className="text-[#6B7280] text-[1.125rem] font-bold leading-normal">2023 MoviesCom by umar faruq</p>
+                <p className="text-[#6B7280] text-[1.125rem] font-bold leading-normal text-center">2023 MoviesCom by umar faruq</p>
             </section>
 
         </main>
