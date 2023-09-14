@@ -13,6 +13,9 @@ const MovieDetail = () => {
     const params = useParams()
     const [movieDetails, setMovieDetails] = useState({})
 
+    const date = movieDetails?.release_date
+    const releaseDateInUTC = Date.parse(date)
+
     const fetchMovieDetails = async () => {
 
         try {
@@ -31,8 +34,8 @@ const MovieDetail = () => {
 
     console.log(movieDetails)
     return (
-        <main className="flex gap-6 py-4">
-            <section className="md:w-[10.5rem] border-2 rounded-r-[4rem] py-4"> 
+        <main className="flex gap-[3rem] py-4">
+            <section className="md:w-[16rem] border-2 rounded-r-[4rem] py-4"> 
                 
                 <div className="flex px-2 items-center gap-4 mb-[6rem]">
                         <img className="w-[2rem]" src={logo}/>
@@ -79,7 +82,15 @@ const MovieDetail = () => {
             </section>
 
             <section className="">
-                <p>cvbo bb2ob2r2rb 2r20b2r02r b</p>
+                <img className="w-[15rem] mb-4"  src={`https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`} alt="movie poster"/>
+                <div className="flex gap-4 items-center">
+                    <p data-testid="movie-title" className="text-[1rem] font-bold leading-normal  text-[#666]">{movieDetails?.title}</p>
+                    <span className="text-[1.2rem]">:</span>
+                    <p data-testid="movie-release-date" className="text-[1rem] font-bold leading-normal  text-[#666]">{releaseDateInUTC}</p>
+                    <span className="text-[1.2rem]">:</span>
+                    <p data-testid="movie-runtime" className="text-[1rem] font-bold leading-normal  text-[#666]">{movieDetails?.runtime}</p>
+                </div>
+                <p data-testid="movie-runtime" className="text-[1rem] leading-normal w-[50%] mt-2 text-[#666]">{movieDetails?.overview}</p>
             </section>
         </main>
     )
