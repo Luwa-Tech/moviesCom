@@ -9,22 +9,27 @@ import axios from "axios"
 
 import {FaFacebookF} from "react-icons/fa"
 import {AiOutlineTwitter, AiOutlineInstagram, AiFillYoutube} from "react-icons/ai"
+import {PiSpinnerGapThin} from "react-icons/pi"
 
 const Home = () => {
     const [movies, setMovies] = useState([])
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
     const topRated = movies.filter((movie, index) => index < 10)
     
 
     const fetchData = async () => {
         try {
-          const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=1d35541573902b7260a788e28e9dfe98")
-          
-          setMovies(response.data.results)
+            setLoading(true)
+            const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=1d35541573902b7260a788e28e9dfe98")
+            
+            setMovies(response.data.results)
           
         }catch(err) {
           console.log(err)
           setError(true)
+        } finally {
+            setLoading(false)
         }
       }
       
@@ -36,6 +41,12 @@ const Home = () => {
     if (error) {
         return (
         <h1>There was an error when fetching movies</h1>
+        )
+    }
+
+    if (loading) {
+        return (
+            <PiSpinnerGapThin className="w-[7rem] my-[7rem] mx-auto"/>
         )
     }
 
