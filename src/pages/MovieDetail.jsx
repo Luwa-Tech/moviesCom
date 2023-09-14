@@ -33,7 +33,7 @@ const MovieDetail = () => {
 
     return (
         <main className="px-4 py-2">
-            <NavLink to="/" className="hover:underline text-[#000] text-[1.1rem] font-bold leading-normal"><BsArrowLeft /> Go back</NavLink>
+            <NavLink to="/" className="hover:underline text-[#000] text-[1.1rem] font-bold leading-normal flex items-center gap-2"><BsArrowLeft /> Go back</NavLink>
             <section>
                 <img className="w-[15rem] mb-4 mt-[2rem]"  src={`https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`} alt="movie poster"/>
                 <div className="flex gap-4 items-center">
