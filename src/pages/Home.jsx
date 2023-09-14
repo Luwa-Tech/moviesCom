@@ -12,7 +12,9 @@ import {AiOutlineTwitter, AiOutlineInstagram, AiFillYoutube} from "react-icons/a
 
 const Home = () => {
     const [movies, setMovies] = useState([])
+    const [error, setError] = useState(false)
     const topRated = movies.filter((movie, index) => index < 10)
+    
 
     const fetchData = async () => {
         try {
@@ -22,7 +24,7 @@ const Home = () => {
           
         }catch(err) {
           console.log(err)
-          //error handling later
+          setError(true)
         }
       }
       
@@ -31,7 +33,12 @@ const Home = () => {
         fetchData()
     }, [])
 
-    
+    if (error) {
+        return (
+        <h1>There was an error when fetching movies</h1>
+        )
+    }
+
     return (
         <main>
             <header className="bg-[url('../../images/Poster.png')]">
